@@ -118,60 +118,65 @@ nav ul li a:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
 
-/* Portfolio Section */
+/* Portfolio Section Styles */
 .portfolio {
-    padding: 60px 20px;
     text-align: center;
-    animation: fadeIn 1.5s ease-in-out;
-}
-
-.portfolio h2 {
-    margin-bottom: 40px;
-    color: #D3D9D4; /* Light Gray */
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-}
-
-.portfolio-items {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-}
-
-.portfolio-item {
-    background-color: #2E3944; /* Gunmetal */
     padding: 20px;
-    border-radius: 10px;
-    text-align: left;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background-image: linear-gradient(145deg, #2E3944, #1a252c); /* Gradient texture */
 }
 
-.portfolio-item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+.project-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
 }
 
-.portfolio-item img {
-    width: 100%;
-    border-radius: 10px;
-    margin-bottom: 15px;
-    border: 3px solid #748D92; /* Desaturated Cyan */
-    transition: border-color 0.3s ease;
+.project-box {
+    position: absolute;
+    width: 300px; /* Adjust width as needed */
+    height: 300px; /* Adjust height as needed */
+    background-color: #3498db; /* Adjust color as needed */
+    border-radius: 15px; /* Optional: rounded corners */
+    transform: translateX(-100%);
+    opacity: 0;
+    animation: slideIn 1s ease-out forwards;
 }
 
-.portfolio-item img:hover {
-    border-color: #124E66; /* Dark Cyan */
+.project-content {
+    padding: 0px;
+    color: #fff;
 }
 
-.portfolio-item h3 {
-    margin-top: 0;
-    color: #D3D9D4; /* Light Gray */
+/* Keyframes for sliding and stacking */
+@keyframes slideIn {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    50% {
+        transform: translateX(0) translateY(50px); /* Stacked on top */
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateX(0) translateY(0); /* Final position */
+        opacity: 1;
+    }
 }
 
-.portfolio-item p {
-    font-size: 0.9em;
+/* Delay for each project box to create stacking effect */
+.project-box:nth-child(1) {
+    animation-delay: 0s;
 }
+.project-box:nth-child(2) {
+    animation-delay: 0.2s;
+}
+.project-box:nth-child(3) {
+    animation-delay: 0.4s;
+}
+.project-box:nth-child(4) {
+    animation-delay: 0.6s;
+}
+
 
 /* Resume Section */
 .resume {
@@ -358,6 +363,7 @@ nav ul li a:hover {
 }
 
 /* Styles for the Services page */
+/* Services Section */
 .services {
     padding: 70px;
     max-width: 1200px;
@@ -371,6 +377,7 @@ nav ul li a:hover {
     margin-bottom: 20px;
 }
 
+/* Individual Service Boxes */
 .service {
     background-color: #2E3944; /* Gunmetal */
     border-radius: 8px;
@@ -378,6 +385,14 @@ nav ul li a:hover {
     margin-bottom: 20px;
     color: #D3D9D4; /* Light Gray */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateX(-100%); /* Start off-screen to the left */
+    animation: slideIn 1s forwards;
+}
+
+.service:nth-child(even) {
+    transform: translateX(100%); /* Start off-screen to the right for even-numbered boxes */
+    animation: slideInRight 1s forwards;
 }
 
 .service h2 {
@@ -388,6 +403,21 @@ nav ul li a:hover {
 .service p {
     font-size: 16px;
     line-height: 1.5;
+}
+
+/* Keyframes for Animations */
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 nav ul {
@@ -776,5 +806,102 @@ nav ul li a:hover {
 
     .mobile-menu.active {
         display: flex;
+    }
+}
+
+/* Portfolio Section */
+.portfolio {
+    padding: 60px 20px;
+    text-align: center;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+.portfolio h1 {
+    margin-bottom: 40px;
+    color: #D3D9D4; /* Light Gray */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Portfolio Items Grid */
+.portfolio-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    position: relative; /* Make sure the grid is positioned relatively */
+}
+
+/* Individual Portfolio Item */
+.portfolio-item {
+    background-color: #2E3944; /* Gunmetal */
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+    background-image: linear-gradient(145deg, #2E3944, #1a252c); /* Gradient texture */
+    opacity: 0;
+    transform: translateX(-100%) scale(0.8); /* Start from off the screen and scale down */
+    position: absolute; /* Stack them on top of each other */
+    animation: slideInStack 1s ease forwards;
+}
+
+/* Staggering the animation */
+.portfolio-item:nth-child(1) {
+    animation-delay: 0s;
+}
+.portfolio-item:nth-child(2) {
+    animation-delay: 0.1s;
+}
+.portfolio-item:nth-child(3) {
+    animation-delay: 0.2s;
+}
+.portfolio-item:nth-child(4) {
+    animation-delay: 0.3s;
+}
+/* Add more nth-child selectors as needed */
+
+/* Hover Effects for Portfolio Item */
+.portfolio-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+}
+
+/* Image within Portfolio Item */
+.portfolio-item img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    border: 3px solid #748D92; /* Desaturated Cyan */
+    transition: border-color 0.3s ease;
+}
+
+.portfolio-item img:hover {
+    border-color: #124E66; /* Dark Cyan */
+}
+
+/* Portfolio Item Title */
+.portfolio-item h3 {
+    margin-top: 0;
+    color: #D3D9D4; /* Light Gray */
+}
+
+/* Portfolio Item Description */
+.portfolio-item p {
+    font-size: 0.9em;
+}
+
+/* Keyframes for Animations */
+@keyframes slideInStack {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%) scale(0.8); /* Start from off-screen and scale down */
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(0) scale(1.1); /* Move to final position but scale up */
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0) scale(1); /* Final position and scale */
     }
 }
